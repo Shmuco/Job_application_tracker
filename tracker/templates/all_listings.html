@@ -1,0 +1,47 @@
+{% extends 'partials/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+
+
+<div class = 'container vertical-center' >
+  <div class="card-columns">
+    {% for listing in listings %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{listing.job_title}}</h5>
+          <p>
+            <i class="fas fa-calendar-plus"> {{listing.created|naturaltime}}</i>
+            {% if listing.salary %}
+            <i class="fas fa-coins"> {{listing.salary}}</i>
+            {% endif %}
+            
+            {% if listing.company|length > 0 %}
+            <i class="fas fa-briefcase"> {{listing.company}}</i>
+            {% endif %}
+          </p>
+          
+          {% autoescape off %}
+          <p class="card-text">{{listing.description|truncatewords:"20"}}</p>
+          {% endautoescape %}
+        </div>
+      
+        <div class="card-body">
+          <a href="{{listing.website}}" class="card-link">Website</a>
+          <a href="{% url 'single_listing' listing.id %}" class="card-link">View</a>
+          {% if listing in user.myapplications_set.all %}
+          <a href="{% url 'notinterested' listing.id %}" class="card-link">Not Interested</a>
+          {% else %}
+          
+          <a href="{% url 'interested' listing.id %}" class="card-link">Interested</a>
+          {% endif %}
+          
+        </div>
+      </div>
+
+    {% endfor %}
+
+</div>
+</div>
+{% endblock %}

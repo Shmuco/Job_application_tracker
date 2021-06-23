@@ -1,0 +1,79 @@
+{% extends 'partials/tracker_base.html' %} 
+{% load humanize %} 
+{% load crispy_forms_tags%} 
+{% block tracker_nav %}
+{% load humanize %}
+
+<div class="container vertical-center">
+  
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card ">
+        <div class="card-body">
+          <h5 class="card-title">{{application.listing.job_title}}</h5>
+          <p>
+            <i class="fas fa-calendar-plus"> {{application.listing.created|naturaltime}}</i>
+            {% if application.listing.salary %}
+            <i class="fas fa-coins"> {{application.listing.salary}}</i>
+            {% endif %}
+            
+            {% if application.listing.company|length > 0 %}
+            <i class="fas fa-briefcase"> {{application.listing.company}}</i>
+            {% endif %}
+          </p>
+          {% autoescape off %}
+          <p class="card-text">{{application.listing.description}}</p>
+          {% endautoescape %}
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{application.listing.company}}</li>
+            <li class="input-group-prepend">
+              <form method="POST">
+                {% csrf_token %} {{ application_update|crispy }}
+
+                <button type="submit" class="btn submit col-sm-1 " name="application">
+                  Submit
+                </button>
+              </form>
+            </li>
+          
+        </ul>
+        <div class="card-body">
+          <a href="{{application.listing.website}}" class="card-link">Website</a>
+
+          <a href="{% url 'notinterested' application.listing.id %}" class="card-link">Not Interested</a>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <div class="card-body overflow-auto">
+          {% for update in updates%}
+          <p class="float-left">{{update.text}}</p>
+          <p class="text-muted float-right">{{update.time|naturaltime}}</p>
+
+
+          <form action="{% url 'delete_update' update.id%}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn submit btn-lg" name="Delete">
+              <i class="fas fa-times"></i>
+            </button>
+          </form>
+          {% endfor %}
+        </div>
+      </div>
+
+
+      <form method="POST">
+        {% csrf_token %} {{ updates_form|crispy }}
+
+        <button type="submit" class="btn submit btn-lg" name="update">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

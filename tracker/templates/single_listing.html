@@ -1,0 +1,36 @@
+{% extends 'partials/tracker_base.html' %}
+{% block content %}
+{% load humanize %}
+<div class = 'container vertical-center' >
+   
+   
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{job_title}}</h5>
+          <p>
+            {% if job.company.name|length > 0 %}
+            <i class="fas fa-briefcase">{{job.company}}</i>
+            {% endif %}
+            <i class="fas fa-calendar-plus"> {{job.created|naturaltime}}</i>
+            {% if job.salary %}
+            <i class="fas fa-coins"> {{job.salary}}</i>
+            {% endif %}
+            
+          </p>
+          {% autoescape off %}
+          <p class="card-text">{{job.description}}</p>
+          {% endautoescape %}
+        </div>
+        
+        <div class="card-body">
+          <a href="{{job.website}}" class="card-link">Website</a>
+
+          <a href="{% url 'notinterested' job.id %}" class="card-link">Not Interested</a>
+          
+          <a href="{% url 'interested' job.id %}" class="card-link">Interested</a>
+          
+        </div>
+      </div>
+
+</div>
+{% endblock %}

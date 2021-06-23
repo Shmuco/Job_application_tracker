@@ -1,0 +1,32 @@
+{% extends 'partials/tracker_base.html' %}
+{% load crispy_forms_tags %}
+{% block tracker_nav %}
+
+<div class='container'>
+
+  <div class="card-columns">
+  {% for result in results %}
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{result.title}}</h5>
+        <p class="card-text">{{application.listing.company}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+          {% autoescape off %}
+        <li class="list-group-item">{{result.description}}</li>
+        {% endautoescape %}
+        <li class="list-group-item">{{result.company}}</li>
+      </ul>
+      <div class="card-body">
+        <a href="{{result.url}}" class="card-link">Website</a>
+
+        <a href="#" class="card-link">Not Interested</a>
+        <a href="#" class="card-link">View</a>
+
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

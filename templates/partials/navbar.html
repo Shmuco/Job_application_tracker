@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand " href="#"><img
+        src="#"
+        alt="" width="50" height="50"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+      <ul class="navbar-nav d-lg-flex align-items-center ">
+        {% with url_name=request.resolver_match.url_name %}
+        <li class="nav-item {% if url_name == 'homepage' %}active{% endif %} ">
+          <a class="nav-link" href="{% url 'all_listings' %}">Home<span class="sr-only">(current)</span></a>
+        
+        </li>
+        <li class="nav-item {% if url_name == 'new_search' %}active{% endif %}">
+          <a class="nav-link " href="{% url 'new_search' %}">Search Jobs</a>
+        </li>
+        <li class="nav-item {% if url_name == 'all' %}active{% endif %}">
+          <a class="nav-link " href="#">Forum</a>
+        </li>
+        {% if user.is_authenticated %}
+
+        <li class="nav-item dropdown {% if url_name == 'my_deck' %}active{% endif %} {% if url_name == 'new_sale' %}active{% endif %}{% if url_name == 'my_open_sales' %}active{% endif %}{% if url_name == 'my_offers' %}active{% endif %}">
+          <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Jobs
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'new_listing' %}">New Job</a>
+            <a class="dropdown-item" href="{% url 'my_applications_intertested' %}">My Applications</a>
+          
+          </div>
+        </li>
+        
+        <li class="nav-item dropdown {% if url_name == 'profile_update' %}active{% endif %}{% if url_name == 'my_deck' %}active{% endif %}">
+          <a class="nav-link " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-2x"></i>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            <a class="dropdown-item" href="{% url 'profile_update' user.profile.id %}">Profile</a>
+          </div>
+        </li>
+
+
+        {% else %}
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login<span class="sr-only"></a>
+          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'signup' %}">SignUp<span class="sr-only">(current)</span></a>
+          </li>
+         
+
+        {% endif %}
+        {% endwith %}
+
+
+      </ul>
+      <div id="google_translate_element" style="float:left; padding-left:15px"></div>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({includedLanguages: 'iw,fr,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    </div>
+  </nav>

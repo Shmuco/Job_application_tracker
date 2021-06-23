@@ -1,0 +1,2 @@
+AFFID=''
+SECRET_KEY = ''

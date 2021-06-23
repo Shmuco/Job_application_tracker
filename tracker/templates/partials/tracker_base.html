@@ -1,0 +1,33 @@
+{% extends 'partials/base.html' %}
+{% block content%}
+
+{% load crispy_forms_tags %}
+
+<div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'my_applications_intertested' %}active{% endif %}" href="{% url 'my_applications_intertested' %}">Intertested</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'my_applications_applied' %}active{% endif %}" href="{% url 'my_applications_applied' %}">Applied</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.url_name == 'my_applications_interview' %}active{% endif %}" href="{% url 'my_applications_interview' %}">interview</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  {% if request.resolver_match.url_name == 'my_applications_accepted' %}active{% endif %}" href="{% url 'my_applications_accepted' %}">Accepted</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link  {% if request.resolver_match.url_name == 'my_applications_rejected' %}active{% endif %}" href="{% url 'my_applications_rejected' %}">Rejected</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      {% block tracker_nav %}
+
+
+      {% endblock %}
+    </div>
+  </div>
+  {% endblock %}
