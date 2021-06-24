@@ -124,13 +124,8 @@ def my_applications_single(request, application_id):
 
 class DeleteComment(DeleteView):
     model = Updates
-    print('working')
     success_url = reverse_lazy('my_applications_single')
     
     def get_success_url(self):
-        return reverse('my_applications_single', kwargs={'int': int(self.object.application.id)})
-    
-
-
-
-        
+        print(self.kwargs)
+        return reverse('my_applications_single', kwargs={'application_id': int(self.object.application.id)})

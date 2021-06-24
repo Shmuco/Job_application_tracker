@@ -1,0 +1,24 @@
+body {
+    background-color: mediumorchid;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+ } 
+ body {
+    top: 0px !important; 
+ }
+ .goog-te-gadget-icon {
+    display: none !important;
+ }
+
+ .height-restraint{
+     height:80vh
+ }
+ 
+ .scroll {
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+   
+ }

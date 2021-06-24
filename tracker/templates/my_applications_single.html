@@ -1,11 +1,11 @@
-{% extends 'partials/tracker_base.html' %} 
-{% load humanize %} 
-{% load crispy_forms_tags%} 
+{% extends 'partials/tracker_base.html' %}
+{% load humanize %}
+{% load crispy_forms_tags%}
 {% block tracker_nav %}
 {% load humanize %}
 
-<div class="container vertical-center">
-  
+<div class="container vertical-center ">
+
 
   <div class="row">
     <div class="col-sm-6">
@@ -17,28 +17,33 @@
             {% if application.listing.salary %}
             <i class="fas fa-coins"> {{application.listing.salary}}</i>
             {% endif %}
-            
+
             {% if application.listing.company|length > 0 %}
             <i class="fas fa-briefcase"> {{application.listing.company}}</i>
             {% endif %}
           </p>
           {% autoescape off %}
-          <p class="card-text">{{application.listing.description}}</p>
+          <div>
+            <p class="card-text scroll">{{application.listing.description}}</p>
+          </div>
           {% endautoescape %}
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">{{application.listing.company}}</li>
-            <li class="input-group-prepend">
-              <form method="POST">
-                {% csrf_token %} {{ application_update|crispy }}
-
-                <button type="submit" class="btn submit col-sm-1 " name="application">
+        
+        
+        <form method="POST">
+        <div class="row">
+                  {% csrf_token %}
+                <div class='col-7'>
+                  {{ application_update|crispy }}
+                </div>
+                <div class="col-4 ">
+                <button type="submit" class="btn align-middle btn-secondary submit" name="application">
                   Submit
                 </button>
-              </form>
-            </li>
+              </div>
+            </div>
+          </form>
           
-        </ul>
         <div class="card-body">
           <a href="{{application.listing.website}}" class="card-link">Website</a>
 
@@ -47,29 +52,35 @@
       </div>
     </div>
 
-    <div>
-      <div class="card">
-        <div class="card-body overflow-auto">
-          {% for update in updates%}
-          <p class="float-left">{{update.text}}</p>
-          <p class="text-muted float-right">{{update.time|naturaltime}}</p>
 
+    <div class="card col-sm-6">
+      <div class="card-body">
+        <div class='scroll'>
+          {% for update in updates %}
+          <div class="row w-20 ">
+            <div class="col-sm-10 align-middle"><p class=" float-left w-70">{{update.text}}</p>
+            <p class="text-muted w-20 float-right">{{update.time|naturaltime}}</p></div>
 
-          <form action="{% url 'delete_update' update.id%}" method="post">
-            {% csrf_token %}
-            <button type="submit" class="btn submit btn-lg" name="Delete">
-              <i class="fas fa-times"></i>
-            </button>
-          </form>
+            <div class="col-sm-1">
+            <form action="{% url 'delete_update' update.id%}" method="post">
+              <input type="hidden" name="post" value="yes">
+              <button type="submit" class="btn submit" name="Delete">
+                <i class="fas fa-times w-6 "></i>
+                {% csrf_token %}
+              </button>
+            </form>
+            </div>
+          </div>
           {% endfor %}
         </div>
       </div>
 
 
+
       <form method="POST">
         {% csrf_token %} {{ updates_form|crispy }}
 
-        <button type="submit" class="btn submit btn-lg" name="update">
+        <button type="submit" class="btn btn-priamry submit btn-lg" name="update">
           Submit
         </button>
       </form>
