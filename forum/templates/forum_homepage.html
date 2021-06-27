@@ -1,0 +1,27 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+
+
+<h1>All Posts</h1>
+
+
+  <a class="card-link btn btn-outline-info" href="{% url 'new_post' %}" role="button">New Post</a>
+  <br>
+  <br>
+{% for p in posts%}
+<div class="card">
+  <div class="card-body">
+      <a class = 'card-title' href="{% url 'single_post' p.id %}" >
+      <p class = 'card-title'>{{p.title}}</p>
+      </a>
+      <p class = 'post-by font-weight-light'>{{p.content}}</p>  
+      <footer class = 'post-by font-weight-lighter'>Post by: {{p.creator|title}} - {{ p.created_at }}</footer>
+      
+    </div>
+    </div>
+  
+  <br>
+   {% endfor %}
+   {% endblock %}
+

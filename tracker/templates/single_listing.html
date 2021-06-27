@@ -23,11 +23,11 @@
         </div>
         
         <div class="card-body">
-          <a href="{{job.website}}" class="card-link">Website</a>
+          <a href="{{job.website}}" class="card-link btn btn-outline-info  ">Website</a>
 
-          <a href="{% url 'notinterested' job.id %}" class="card-link">Not Interested</a>
+          <a href="{% url 'notinterested' job.id %}" class="card-link btn btn-outline-info ">Not Interested</a>
           
-          <a href="{% url 'interested' job.id %}" class="card-link">Interested</a>
+          <a href="{% url 'interested' job.id %}" class="card-link btn btn-outline-info ">Interested</a>
           
         </div>
       </div>

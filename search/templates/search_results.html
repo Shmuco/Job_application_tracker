@@ -1,32 +1,78 @@
-{% extends 'partials/tracker_base.html' %}
+{% extends 'partials/base.html' %}
+{% block content %}
 {% load crispy_forms_tags %}
-{% block tracker_nav %}
+{% load humanize %}
 
-<div class='container'>
+
+
+<div class = 'container-fluid vertical-center' >
+
+
+  
+  {% include 'partials/search_bar.html' %}
 
   <div class="card-columns">
-  {% for result in results %}
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">{{result.title}}</h5>
-        <p class="card-text">{{application.listing.company}}</p>
-      </div>
-      <ul class="list-group list-group-flush">
+    {% for listing in page_obj %}
+    <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title text-center">{{listing.job_title}}</h5>
+          <p>
+            <i class="fas fa-calendar-plus font-weight-lighter"> {{listing.created|naturaltime}}</i>
+            {% if listing.salary %}
+            <i class="fas fa-coins font-weight-lighter"> {{listing.salary}}</i>
+            {% endif %}
+            
+            {% if listing.company|length > 0 %}
+            <i class="fas fa-briefcase font-weight-lighter"> {{listing.company}}</i>
+            {% endif %}
+          </p>
+          
           {% autoescape off %}
-        <li class="list-group-item">{{result.description}}</li>
-        {% endautoescape %}
-        <li class="list-group-item">{{result.company}}</li>
-      </ul>
-      <div class="card-body">
-        <a href="{{result.url}}" class="card-link">Website</a>
-
-        <a href="#" class="card-link">Not Interested</a>
-        <a href="#" class="card-link">View</a>
-
+          <p class="card-text font-weight-light">{{listing.description|truncatewords:"20"}}</p>
+          {% endautoescape %}
+        </div>
+      
+        <div class="card-body">
+          <div class = 'row'>
+            <div class="col-sm-3 ">
+          
+            <a href="{{listing.website}}" class="card-link btn btn-outline-info btn-sm">Website</a>
+          </div>
+            <div class="col-3">
+          <a href="{% url 'single_listing' listing.id %}" class="card-link btn btn-outline-info  btn-sm">View</a>
+        </div>
+          <div class="col-6">
+          {% if listing in user.myapplications_set.all %}
+          <a href="{% url 'notinterested' listing.id %}" class="card-link btn btn-outline-info  btn-sm">Not Interested</a>
+          {% else %}
+          
+          <a href="{% url 'interested' listing.id %}" class="card-link btn btn-outline-info  btn-block">Interested</a>
+          {% endif %}
+        </div>
+        </div>
+        </div>
       </div>
-    </div>
-    {% endfor %}
-  </div>
 
+    {% endfor %}
+
+</div>
+
+<div class="pagination">
+  <span class="step-links">
+      {% if page_obj.has_previous %}
+          <a href="?{{request.GET.urlencode}}&page=1">&laquo; first</a>
+          <a href="?{{request.GET.urlencode}}&page={{ page_obj.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+          <a href="?{{request.GET.urlencode}}&page={{ page_obj.next_page_number }}">next</a>
+          <a href="?{{request.GET.urlencode}}&page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+  </span>
+</div>
 </div>
 {% endblock %}

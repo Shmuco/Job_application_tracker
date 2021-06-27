@@ -18,4 +18,5 @@ class ApplicationUpdateForm(forms.ModelForm):
     class Meta:
       model = MyApplications
       fields = ('status',)
+      use_required_attribute = False
     

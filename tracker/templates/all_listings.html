@@ -5,36 +5,36 @@
 
 
 
-<div class = 'container vertical-center' >
+<div class = 'container-fluid vertical-center' >
   <div class="card-columns">
     {% for listing in listings %}
-    <div class="card" style="width: 18rem;">
+    <div class="card" >
         <div class="card-body">
-          <h5 class="card-title">{{listing.job_title}}</h5>
+          <h5 class="card-title text-center">{{listing.job_title}}</h5>
           <p>
-            <i class="fas fa-calendar-plus"> {{listing.created|naturaltime}}</i>
+            <i class="fas fa-calendar-plus font-weight-lighter"> {{listing.created|naturaltime}}</i>
             {% if listing.salary %}
-            <i class="fas fa-coins"> {{listing.salary}}</i>
+            <i class="fas fa-coins font-weight-lighter"> {{listing.salary}}</i>
             {% endif %}
             
             {% if listing.company|length > 0 %}
-            <i class="fas fa-briefcase"> {{listing.company}}</i>
+            <i class="fas fa-briefcase font-weight-lighter"> {{listing.company}}</i>
             {% endif %}
           </p>
           
           {% autoescape off %}
-          <p class="card-text">{{listing.description|truncatewords:"20"}}</p>
+          <p class="card-text font-weight-light">{{listing.description|truncatewords:"20"}}</p>
           {% endautoescape %}
         </div>
       
         <div class="card-body">
-          <a href="{{listing.website}}" class="card-link">Website</a>
-          <a href="{% url 'single_listing' listing.id %}" class="card-link">View</a>
+          <a href="{{listing.website}}" class="card-link btn btn-outline-info  btn-sm">Website</a>
+          <a href="{% url 'single_listing' listing.id %}" class="card-link btn btn-outline-info  btn-sm">View</a>
           {% if listing in user.myapplications_set.all %}
-          <a href="{% url 'notinterested' listing.id %}" class="card-link">Not Interested</a>
+          <a href="{% url 'notinterested' listing.id %}" class="card-link btn btn-outline-info  btn-sm">Not Interested</a>
           {% else %}
           
-          <a href="{% url 'interested' listing.id %}" class="card-link">Interested</a>
+          <a href="{% url 'interested' listing.id %}" class="card-link btn btn-outline-info  btn-sm">Interested</a>
           {% endif %}
           
         </div>

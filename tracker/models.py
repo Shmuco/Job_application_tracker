@@ -16,6 +16,10 @@ class JobListing(models.Model):
     location = models.ForeignKey('Location', on_delete=models.CASCADE)
     created = models.DateTimeField(blank=True, null=True, default = timezone.now)
 
+    class Meta:
+        ordering = ['-created']
+  
+
 class Location(models.Model):
     name = models.CharField(max_length= 300)
 

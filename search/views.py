@@ -3,12 +3,13 @@ from django.shortcuts import render, redirect
 from .forms import *
 from tracker.models import *
 from django.db.models import Q
+from django.core.paginator import Paginator
 # Create your views here.
 
 def new_search(request):
-
-    if request.method == 'POST':
-        form = SearchForm(request.POST)
+    
+    form = SearchForm(request.GET)
+    if request.GET:
         if form.is_valid:
             f = form.save(commit=False)
             f.user = request.user
@@ -19,6 +20,10 @@ def new_search(request):
             for word in srch_words[1:]:
                 query |=  Q(job_title__icontains=word) | Q(description__icontains=word)
             listings = JobListing.objects.filter(query)
+            
+            paginator = Paginator(listings, 25)
+            page_number = request.GET.get('page')
+            page_obj = paginator.get_page(page_number)
         
 
 
@@ -26,12 +31,14 @@ def new_search(request):
             # query_location = JobListing.objects.filter(location = f.location)
             # restults = query_location.filter(job_title__contains = f.query)|query_location.filter(description = f.query)
             # print(restults)
+            print(page_obj)
+            print(listings)
 
 
-            return render(request, 'all_listings.html', {'listings': listings})
+            return render(request, 'search_results.html', {'page_obj': page_obj, 'form': form})
     else:
         form = SearchForm()
-    return render(request, 'new_listing_form.html', {'form': form})
+    return render(request, 'new_search.html', {'form': form})
     
 
 

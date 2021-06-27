@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'dal',
     'dal_select2',
+    'bootstrap4',
+    'forum',
+
 
     # 'grappelli',
     

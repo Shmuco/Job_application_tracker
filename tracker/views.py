@@ -103,7 +103,7 @@ def my_applications_rejected(request):
 def my_applications_single(request, application_id):
 
     application = MyApplications.objects.get(id = application_id)
-    application_update = ApplicationUpdateForm(request.POST ,instance = application)
+    application_update = ApplicationUpdateForm(request.POST ,instance = application,)
     updates_form = UpdatesForm
     updates = Updates.objects.filter(application=application)
     if request.method == 'POST' and 'update' in request.POST:

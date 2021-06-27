@@ -1,5 +1,5 @@
 body {
-    background-color: mediumorchid;
+    background-color: #E0E0E0;
 }
 
 .goog-te-banner-frame.skiptranslate {
@@ -17,8 +17,44 @@ body {
  }
  
  .scroll {
-    max-height: 80vh;
+    max-height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
    
  }
+
+ #id_status{
+    border-color: none !important;
+    background-image: none !important;
+   }
+
+#id_text{
+   height: 20vh
+   
+}
+
+option{
+   text-transform: capitalize
+}
+
+
+@media (min-width: 576px) {
+   .card-columns {
+       column-count: 1;
+   }
+}
+@media (min-width: 768px) {
+   .card-columns {
+       column-count: 2;
+   }
+}
+@media (min-width: 992px) {
+   .card-columns {
+       column-count: 2;
+   }
+}
+@media (min-width: 1200px) {
+   .card-columns {
+       column-count: 3;
+   }
+}

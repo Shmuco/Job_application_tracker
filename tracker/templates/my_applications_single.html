@@ -3,87 +3,87 @@
 {% load crispy_forms_tags%}
 {% block tracker_nav %}
 {% load humanize %}
+{% load bootstrap4 %}
 
-<div class="container vertical-center ">
-
-
+<div class="container vertical-center">
   <div class="row">
     <div class="col-sm-6">
-      <div class="card ">
+      <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{application.listing.job_title}}</h5>
           <p>
-            <i class="fas fa-calendar-plus"> {{application.listing.created|naturaltime}}</i>
+            <i class="fas fa-calendar-plus font-weight-lighter">
+              {{application.listing.created|naturaltime}}</i>
             {% if application.listing.salary %}
-            <i class="fas fa-coins"> {{application.listing.salary}}</i>
-            {% endif %}
-
-            {% if application.listing.company|length > 0 %}
-            <i class="fas fa-briefcase"> {{application.listing.company}}</i>
+            <i class="fas fa-coins font-weight-lighter"> {{application.listing.salary}}</i>
+            {% endif %} {% if application.listing.company|length > 0 %}
+            <i class="fas fa-briefcase font-weight-lighter"> {{application.listing.company}}</i>
             {% endif %}
           </p>
           {% autoescape off %}
           <div>
-            <p class="card-text scroll">{{application.listing.description}}</p>
+            <p class="card-text scroll font-weight-light">{{application.listing.description}}</p>
           </div>
           {% endautoescape %}
         </div>
-        
-        
-        <form method="POST">
-        <div class="row">
-                  {% csrf_token %}
-                <div class='col-7'>
-                  {{ application_update|crispy }}
-                </div>
-                <div class="col-4 ">
-                <button type="submit" class="btn align-middle btn-secondary submit" name="application">
-                  Submit
-                </button>
-              </div>
-            </div>
-          </form>
-          
-        <div class="card-body">
-          <a href="{{application.listing.website}}" class="card-link">Website</a>
 
-          <a href="{% url 'notinterested' application.listing.id %}" class="card-link">Not Interested</a>
+        <form method="POST">
+        <div class="row container">
+            {% csrf_token %}
+            <div class="col-7">
+              {% bootstrap_field application_update.status layout='inline'  %}
+              
+            </div>
+            <div class="col-4">
+              <button type="submit" class="btn align-middle btn-secondary submit" name="application">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <div class="card-body">
+          <a href="{{application.listing.website}}" class="card-link btn btn-outline-info">Website</a>
+
+          <a href="{% url 'notinterested' application.listing.id %}" class="card-link btn btn-outline-danger">Not Interested</a>
         </div>
       </div>
     </div>
 
-
-    <div class="card col-sm-6">
+    <div class="card col-sm-5 inline-block">
       <div class="card-body">
-        <div class='scroll'>
+        <div class="scroll">
           {% for update in updates %}
-          <div class="row w-20 ">
-            <div class="col-sm-10 align-middle"><p class=" float-left w-70">{{update.text}}</p>
-            <p class="text-muted w-20 float-right">{{update.time|naturaltime}}</p></div>
+          <div class="row w-20">
+            <div class="col-sm-10 inline-block font-weight-light">
+              <p class="float-left w-70 text-center">{{update.text}}</p>
+              <p class="text-muted w-20 float-right text-center">{{update.time|naturaltime}}</p>
+            </div>
 
-            <div class="col-sm-1">
-            <form action="{% url 'delete_update' update.id%}" method="post">
-              <input type="hidden" name="post" value="yes">
-              <button type="submit" class="btn submit" name="Delete">
-                <i class="fas fa-times w-6 "></i>
-                {% csrf_token %}
-              </button>
-            </form>
+            <div class="col-sm-2 inline-block">
+              <form action="{% url 'delete_update' update.id%}" method="post">
+                <input type="hidden" name="post" value="yes" />
+                <button type="submit" class="btn submit" name="Delete">
+                  <i class="fas fa-times w-6"></i>
+                  {% csrf_token %}
+                </button>
+              </form>
             </div>
           </div>
           {% endfor %}
         </div>
       </div>
 
-
-
       <form method="POST">
-        {% csrf_token %} {{ updates_form|crispy }}
-
-        <button type="submit" class="btn btn-priamry submit btn-lg" name="update">
+        {% csrf_token %}
+        <div class="update_box">
+        {% bootstrap_field updates_form.text show_label=False placeholder='Write your updates here' %}
+</div>
+        <button type="submit" class="btn btn btn-outline-success submit" name="update">
           Submit
         </button>
       </form>
+      <br>
     </div>
   </div>
 </div>
