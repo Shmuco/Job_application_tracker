@@ -8,6 +8,7 @@
     <form method='POST'>
         {% csrf_token %}
         {{ form|crispy }}
+        {{ company_form|crispy }}
         
         <button type="submit" class="btn submit btn-lg btn-block">Submit</button>
         

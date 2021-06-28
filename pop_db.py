@@ -28,6 +28,8 @@ def search_query(page):
                           'url'         : 'http://www.example.com/jobsearch?q=python&l=london',
                           'user_agent'  : 'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0',
                           'page'    : page,
+                        
+                      
                         });
     job_list = result_json['jobs']
     return job_list
@@ -43,27 +45,36 @@ def get_description(url):
   return clean
 
 
-print(search_query(1)[1])
+index = 0
 
-# for i in range(100):
-#   jobs = search_query(i)
-
-  # for job in jobs:
-  #   comp, created = Company.objects.get_or_create(name = job['company'])
-  #   loca, created = Location.objects.get_or_create(name = job['locations'])
-  #   date = job['date']
-  #   date_datetime = datetime.strptime(date, '%a, %d %b %Y %H:%M:%S %Z' )
-  #   description = get_description(job['url'])
-   
-
-
-  #   new = JobListing.objects.get_or_create(
-  #         website = job['url'],
-  #         job_title = job['title'],
-  #         company = comp,
-  #         location = loca,
-  #         description = description,
-  #         salary = job['salary'],
-  #         created = make_aware(date_datetime),
-  #   )
+for i in range(2000):
+  jobs = search_query(i)
+  print(len(jobs))
   
+
+  for job in jobs:
+    try:
+      new = JobListing.objects.get(
+            website = job['url'])
+      index += 1
+      print(index)
+      continue
+
+    except:
+      comp, created = Company.objects.get_or_create(name = job['company'])
+      loca, created = Location.objects.get_or_create(name = job['locations'])
+      date = job['date']
+      date_datetime = datetime.strptime(date, '%a, %d %b %Y %H:%M:%S %Z' )
+      description = get_description(job['url'])
+      new = JobListing.objects.create(
+        website = job['url'],
+        job_title = job['title'],
+        company = comp,
+        location = loca,
+        description = description,
+        salary = job['salary'],
+        created = make_aware(date_datetime),
+      )
+      index += 1
+      print(index)
+    

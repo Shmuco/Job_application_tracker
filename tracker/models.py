@@ -9,7 +9,7 @@ class JobListing(models.Model):
 
     job_title = models.CharField(max_length=200)
     company = models.ForeignKey('Company', on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     description = models.CharField(max_length=2000,)
     website = models.URLField(blank=True, null=True, unique=True)
     salary = models.TextField(max_length= 200, blank=True)

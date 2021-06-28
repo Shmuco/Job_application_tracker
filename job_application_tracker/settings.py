@@ -148,6 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'all_listings'
+LOGOUT_REDIRECT_URL = 'homepage'
 
 try: 
     from .local_settings import *

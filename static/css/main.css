@@ -1,6 +1,9 @@
 body {
     background-color: #E0E0E0;
+   min-height:100vh;
 }
+
+
 
 .goog-te-banner-frame.skiptranslate {
     display: none !important;
@@ -57,4 +60,8 @@ option{
    .card-columns {
        column-count: 3;
    }
+}
+
+.footer{
+   font-family: 'Pacifico', cursive;
 }

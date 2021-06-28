@@ -11,13 +11,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <script src="https://kit.fontawesome.com/5ab333b9b4.js" crossorigin="anonymous"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
         {% bootstrap_css %}
           
         
         
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
     </head>
-    <body>
+    <body class = 'd-flex flex-column min-vh-100'>
     
     {% include 'partials/navbar.html' %}
  
@@ -28,17 +31,21 @@
   
     <div class="container">
         
-    
+    <br>
     {% block content %}
     
     
     {% endblock %}
+    
 </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 {% bootstrap_javascript jquery='full' %}    
 <br>
-
+<footer class="mt-auto">
+{% include 'partials/footer.html' %}
+</footer>
 </body>
 
 </html>

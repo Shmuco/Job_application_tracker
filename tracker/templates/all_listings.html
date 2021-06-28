@@ -12,13 +12,13 @@
         <div class="card-body">
           <h5 class="card-title text-center">{{listing.job_title}}</h5>
           <p>
-            <i class="fas fa-calendar-plus font-weight-lighter"> {{listing.created|naturaltime}}</i>
+            <i class="fas fa-calendar-plus font-weight-lighter"> {{listing.created|naturaltime}}</i></p>
             {% if listing.salary %}
-            <i class="fas fa-coins font-weight-lighter"> {{listing.salary}}</i>
+            <p><i class="fas fa-coins font-weight-lighter"> {{listing.salary}}</i></p>
             {% endif %}
             
             {% if listing.company|length > 0 %}
-            <i class="fas fa-briefcase font-weight-lighter"> {{listing.company}}</i>
+            <p><i class="fas fa-briefcase font-weight-lighter"> {{listing.company}}</i>
             {% endif %}
           </p>
           

@@ -10,32 +10,50 @@ from django.urls import reverse_lazy, reverse
 
 
 def new_listing(request):
+
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+ 
     if request.method == 'POST':
         form = NewListingForm(request.POST)
+        company_form = CompanyForm(request.POST)
+        print(request.POST)
+        if company_form.is_valid:
+           comp, created = Company.objects.get_or_create(name = request.POST['name']) 
         if form.is_valid:
             f = form.save(commit=False)
+            f.company = comp
             f.user = request.user
             f.save()
             return redirect('all_listings')
     else:
         form = NewListingForm()
-    return render(request, 'new_listing_form.html', {'form': form})
+        company_form = CompanyForm()
+    return render(request, 'new_listing_form.html', {'form': form, 'company_form': company_form})
 
 
-def personal_homepage(request):
-    pass
+def homepage(request):
+
+    if not request.user.is_authenticated:
+        return render(request, 'homepage.html')
+    else:
+        return redirect('my_applications_intertested')
 
 def all_listings(request):
-    if request.user.is_authenticated:
+    
         listings = JobListing.objects.all()
-        # myintersts = My_Jobs.objects.filter(user = request.user)
-        # applied_listings_ids = request.user.myapplications_set.all().values_list('listing__id', flat = True)
+       
 
         return render(request, 'all_listings.html', {'listings': listings})
-    else:
-        return redirect('login')
 
 def interested(request, listing_id):
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+
     listing = JobListing.objects.get(id = listing_id)
     interest = MyApplications.objects.create(
         listing = listing,
@@ -46,6 +64,11 @@ def interested(request, listing_id):
 
 
 def not_interested(request, listing_id):
+
+
+    if not request.user.is_authenticated:
+        return redirect('login')
+
     job = MyApplications.objects.filter(listing = listing_id)
 
     job.delete()

@@ -1,9 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from django.views import generic
 from django.urls import reverse_lazy, reverse
 from .forms import *
 from django.http import HttpResponseRedirect
+
+
+
+
 
 
 
@@ -18,10 +22,13 @@ def all (request):
 
 
 class NewPost(generic.CreateView):
+   
     template_name = 'new_post.html'
     model = Post
     fields = ('title', 'content')
     success_url = reverse_lazy('forum_homepage')
+
+    
 
     def form_valid(self, form):
         form.instance.creator = self.request.user

@@ -12,8 +12,9 @@ def new_search(request):
     if request.GET:
         if form.is_valid:
             f = form.save(commit=False)
-            f.user = request.user
-            # f.save()
+            if request.user.is_authenticated:
+                f.user = request.user
+            f.save()
 
             srch_words = f.query.split(' ')
             query = Q(job_title__icontains=srch_words[0]) | Q(description__icontains=srch_words[0])
