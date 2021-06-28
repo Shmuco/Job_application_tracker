@@ -6,6 +6,7 @@ from dal import autocomplete
 from .forms import *
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
+from django.core.paginator import Paginator
 
 
 
@@ -44,9 +45,13 @@ def homepage(request):
 def all_listings(request):
     
         listings = JobListing.objects.all()
-       
+        paginator = Paginator(listings, 25) # Show 25 contacts per page.
 
-        return render(request, 'all_listings.html', {'listings': listings})
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return render(request, 'all_listings.html', {'page_obj': page_obj})
+        
+        # return render(request, 'all_listings.html', {'listings': listings})
 
 def interested(request, listing_id):
 

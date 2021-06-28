@@ -57,20 +57,20 @@
 
 </div>
 
-<div class="pagination">
-  <span class="step-links">
+<div class="pagination justify-content-center ">
+  <span class="step-links card-text font-weight-light">
       {% if page_obj.has_previous %}
-          <a href="?{{request.GET.urlencode}}&page=1">&laquo; first</a>
-          <a href="?{{request.GET.urlencode}}&page={{ page_obj.previous_page_number }}">previous</a>
+          <a href="?{{request.GET.urlencode}}&page=1"><i class="fas fa-fast-backward "></i></a>
+          <a href="?{{request.GET.urlencode}}&page={{ page_obj.previous_page_number }}"><i class="fas fa-backward"></i></a>
       {% endif %}
 
       <span class="current">
-          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+  {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
       </span>
 
       {% if page_obj.has_next %}
-          <a href="?{{request.GET.urlencode}}&page={{ page_obj.next_page_number }}">next</a>
-          <a href="?{{request.GET.urlencode}}&page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+          <a href="?{{request.GET.urlencode}}&page={{ page_obj.next_page_number }}"><i class="fas fa-forward"></i></a>
+          <a href="?{{request.GET.urlencode}}&page={{ page_obj.paginator.num_pages }}"><i class="fas fa-fast-forward"></i></a>
       {% endif %}
   </span>
 </div>
