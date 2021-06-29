@@ -28,6 +28,7 @@ def search_query(page):
                           'url'         : 'http://www.example.com/jobsearch?q=python&l=london',
                           'user_agent'  : 'Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Firefox/31.0',
                           'page'    : page,
+                          'sort': 'date',
                         
                       
                         });
