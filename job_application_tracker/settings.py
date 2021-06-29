@@ -150,8 +150,11 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'all_listings'
 LOGOUT_REDIRECT_URL = 'homepage'
 
-try: 
-    from .local_settings import *
+SECRET_KEY = os.getenv('SECRET_KEY')
+AFFID = os.getenv('NAME'),
 
-except ImportError:
-    print('a local settings file is required for this to run')
+# try: 
+#     from .local_settings import *
+
+# except ImportError:
+#     print('a local settings file is required for this to run')
