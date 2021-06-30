@@ -14,14 +14,14 @@
         <li class="nav-item {% if url_name == 'new_search' %}active{% endif %}">
           <a class="nav-link " href="{% url 'new_search' %}">Search Jobs</a>
         </li>
-        {% if not user.is_authenticated %}
+       
         <li class="nav-item {% if url_name == 'all_listings' %}active{% endif %}">
           <a class="nav-link " href="{% url 'all_listings' %}">Listings</a>
         </li>
         <li class="nav-item {% if url_name == 'forum_homepage' %}active{% endif %}">
           <a class="nav-link " href="{% url 'forum_homepage' %}">Forum</a>
         </li>
-        {% endif %}
+      
 
         {% if user.is_authenticated %}
 
